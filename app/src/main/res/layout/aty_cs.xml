@@ -2,11 +2,13 @@
 <com.eericxu.cslibrary.CSLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/csLayout"
-    app:cs_corner_overlay="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-   >
+    app:cs_clip="30dp"
+    app:cs_corner_overlay="false"
+    app:cs_shadow_size="20dp">
+
     <ImageView
         android:id="@+id/iv_cover"
         android:layout_width="0dp"

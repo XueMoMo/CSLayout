@@ -24,8 +24,17 @@ class CSHelper {
     var mShadowSizeTop = 0f
     var mShadowSizeRight = 0f
     var mShadowSizeBottom = 0f
+
+    private var shadowColorChanged = true
     var mShadowColor: Int = 0x44000000            //阴影颜色
+        set(value) {
+            if (value == field)
+                return
+            field = value
+            shadowColorChanged  = true
+        }
     var mRealShadowSize = 0f
+
 
     var mClip = 0f
     var mClipL = 0f
@@ -91,16 +100,22 @@ class CSHelper {
         }
     }
 
+    var canvas: Canvas? = null
     private fun createShader() {
-        if (mShadowBitmap != null || mRealShadowSize <= 0) return
-        val canvas = Canvas()
-        mShadowBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888)
-        canvas.setBitmap(mShadowBitmap)
-        mPaint.color = Color.GRAY
-//        var radius = mRealShadowSize * 0.8f
-//        if (radius < 1f) radius = 1f
+        if (mRealShadowSize <= 0f)
+            return
+        if (!shadowColorChanged)
+            return
+        shadowColorChanged = false
+        if (mShadowBitmap == null || canvas == null) {
+            canvas = Canvas()
+            mShadowBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888)
+            canvas?.setBitmap(mShadowBitmap)
+        }
+        mPaint.color = Color.TRANSPARENT
+        canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         mPaint.setShadowLayer(mRealShadowSize, 0f, 0f, mShadowColor)
-        canvas.drawPath(mShadowPath, mPaint)
+        canvas?.drawPath(mShadowPath, mPaint)
 
     }
 
@@ -190,7 +205,7 @@ class CSHelper {
             mClipPath.fillType = Path.FillType.WINDING
 //            Log.e("drawShadow:", "" + mRealShadowSize)
             c.clipPath(mClipPath, Region.Op.DIFFERENCE)
-            mPaint.color = Color.GRAY
+            mPaint.color = Color.WHITE
             c.drawBitmap(mShadowBitmap, 0f, 0f, mPaint)
             c.restore()
         }

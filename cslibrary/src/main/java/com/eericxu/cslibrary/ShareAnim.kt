@@ -42,7 +42,7 @@ inline fun startShareAnim(csLayout: CSLayout?, animData: AnimData, duration: Lon
     csLayout.getLocationInWindow(intArray)
     val topOffset = intArray[1]
     val transationY = animData.rect.top - topOffset
-    Log.e("ShareAnim", "transationY:$transationY  topOffset:$topOffset")
+//    Log.e("ShareAnim", "transationY:$transationY  topOffset:$topOffset")
     val helper = csLayout.csHelper
     val clipB = (csLayout.height - animData.rect.height()) + animData.csParms.mClipB
     val anim = ValueAnimator.ofFloat(1f, 0f)
@@ -52,7 +52,7 @@ inline fun startShareAnim(csLayout: CSLayout?, animData: AnimData, duration: Lon
 
         val value = anim.animatedValue as Float
         val bais = MathUtils.clamp(value,0f,1f)
-        Log.i("bais","bais:$bais")
+//        Log.i("bais","bais:$bais")
         csLayout.translationY = transationY * value
         helper.mClipL = animData.csParms.mClipL * bais
         helper.mClipT = animData.csParms.mClipT * bais
@@ -83,7 +83,7 @@ inline fun finishShareAnim(csLayout: CSLayout?, animData: AnimData, duration: Lo
     csLayout.getLocationInWindow(intArray)
     val topOffset = intArray[1]
     val transationY = animData.rect.top - topOffset
-    Log.e("ShareAnim", "transationY:$transationY  topOffset:$topOffset")
+//    Log.e("ShareAnim", "transationY:$transationY  topOffset:$topOffset")
     val helper = csLayout.csHelper
     val clipB = (csLayout.height - animData.rect.height()) + animData.csParms.mClipB
     val anim = ValueAnimator.ofFloat(0f, 1f)
