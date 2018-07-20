@@ -52,6 +52,7 @@ inline fun startShareAnim(csLayout: CSLayout?, animData: AnimData, duration: Lon
 
         val value = anim.animatedValue as Float
         val bais = MathUtils.clamp(value,0f,1f)
+        Log.i("bais","bais:$bais")
         csLayout.translationY = transationY * value
         helper.mClipL = animData.csParms.mClipL * bais
         helper.mClipT = animData.csParms.mClipT * bais
@@ -91,7 +92,7 @@ inline fun finishShareAnim(csLayout: CSLayout?, animData: AnimData, duration: Lo
     anim.addUpdateListener {
 
         val value = anim.animatedValue as Float
-        val bais = MathUtils.clamp(value,0f,1f)
+        val bais = Math.max(value,0f)
         csLayout.translationY = transationY * value
         helper.mClipL = animData.csParms.mClipL * bais
         helper.mClipT = animData.csParms.mClipT * bais

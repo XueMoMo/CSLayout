@@ -158,9 +158,9 @@ class CSHelper {
 
 
     fun refresh() {
-        val startTime = System.currentTimeMillis()
+//        val startTime = System.currentTimeMillis()
         computePath()
-        Log.e("Time::", "compute:${System.currentTimeMillis() - startTime}")
+//        Log.e("Time::", "compute:${System.currentTimeMillis() - startTime}")
         createShader()
     }
 

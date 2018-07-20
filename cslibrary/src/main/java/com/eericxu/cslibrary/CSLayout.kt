@@ -22,7 +22,6 @@ class CSLayout : ConstraintLayout {
     var isDrawed = false
     override fun draw(canvas: Canvas?) {
 //        Log.e("Draw", "" + (canvas == null))
-        setLayerType(LAYER_TYPE_SOFTWARE,null)
         isDrawed = true
         csHelper.drawBefore(canvas,isInEditMode)
         super.draw(canvas)
