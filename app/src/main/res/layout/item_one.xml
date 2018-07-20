@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.eericxu.cslibrary.CSLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    app:cs_corner_overlay="false"
+    app:cs_clip="20dp"
+    app:cs_corner="20dp"
+    app:cs_shadow_size="15dp">
+
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_4" />
+
+
+</com.eericxu.cslibrary.CSLayout>

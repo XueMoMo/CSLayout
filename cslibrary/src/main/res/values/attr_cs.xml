@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- *公共属性* -->
+    <!--圆形-->
+    <attr name="cs_circle" format="boolean" />
+    <!--全部圆角半径-->
+    <attr name="cs_corner" format="integer|dimension" />
+    <!--针对各个角的半径-->
+    <attr name="cs_corner_top_left" format="integer|dimension" />
+    <attr name="cs_corner_top_right" format="integer|dimension" />
+    <attr name="cs_corner_bottom_left" format="integer|dimension" />
+    <attr name="cs_corner_bottom_right" format="integer|dimension" />
+
+    <!-- 是否剪裁 Layout 的背景 -->
+    <attr name="cs_clip_background" format="boolean" />
+
+    <!-- 阴影-->
+    <attr name="cs_shadow_size" format="integer|dimension" />
+    <attr name="cs_shadow_color" format="color" />
+    <attr name="cs_shadow_size_left" format="integer|dimension" />
+    <attr name="cs_shadow_size_top" format="integer|dimension" />
+    <attr name="cs_shadow_size_right" format="integer|dimension" />
+    <attr name="cs_shadow_size_bottom" format="integer|dimension" />
+
+    <!--裁切大小-->
+    <attr name="cs_clip" format="integer|dimension" />
+    <attr name="cs_clip_left" format="integer|dimension" />
+    <attr name="cs_clip_top" format="integer|dimension" />
+    <attr name="cs_clip_right" format="integer|dimension" />
+    <attr name="cs_clip_bottom" format="integer|dimension" />
+
+    <!---->
+    <attr name="cs_corner_overlay" format="boolean" />
+    <attr name="cs_corner_overlay_color" format="color" />
+    <!--真正用于解析的属性-->
+    <declare-styleable name="CSAttrs">
+        <attr name="cs_circle" />
+        <attr name="cs_corner" />
+        <attr name="cs_corner_top_left" />
+        <attr name="cs_corner_top_right" />
+        <attr name="cs_corner_bottom_left" />
+        <attr name="cs_corner_bottom_right" />
+
+        <attr name="cs_clip_background" />
+        <attr name="cs_shadow_color" />
+
+        <attr name="cs_shadow_size" />
+        <attr name="cs_shadow_size_left" />
+        <attr name="cs_shadow_size_top" />
+        <attr name="cs_shadow_size_right" />
+        <attr name="cs_shadow_size_bottom" />
+
+        <attr name="cs_corner_overlay" />
+        <attr name="cs_corner_overlay_color" />
+
+        <attr name="cs_clip"/>
+        <attr name="cs_clip_left"/>
+        <attr name="cs_clip_top"/>
+        <attr name="cs_clip_right"/>
+        <attr name="cs_clip_bottom"/>
+    </declare-styleable>
+    <declare-styleable name="CSLayout">
+        <attr name="cs_circle" />
+        <attr name="cs_corner" />
+        <attr name="cs_corner_top_left" />
+        <attr name="cs_corner_top_right" />
+        <attr name="cs_corner_bottom_left" />
+        <attr name="cs_corner_bottom_right" />
+
+        <attr name="cs_clip_background" />
+        <attr name="cs_shadow_color" />
+
+        <attr name="cs_shadow_size" />
+        <attr name="cs_shadow_size_left" />
+        <attr name="cs_shadow_size_top" />
+        <attr name="cs_shadow_size_right" />
+        <attr name="cs_shadow_size_bottom" />
+
+        <attr name="cs_corner_overlay" />
+        <attr name="cs_corner_overlay_color" />
+
+        <attr name="cs_clip"/>
+        <attr name="cs_clip_left"/>
+        <attr name="cs_clip_top"/>
+        <attr name="cs_clip_right"/>
+        <attr name="cs_clip_bottom"/>
+    </declare-styleable>
+</resources>
