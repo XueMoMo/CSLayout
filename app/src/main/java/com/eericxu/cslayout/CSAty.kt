@@ -1,5 +1,6 @@
 package com.eericxu.cslayout
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.eericxu.cslibrary.AnimData
@@ -22,18 +23,19 @@ class CSAty : BaseAty() {
 
     val animData by lazy { intent.getParcelableExtra<AnimData>("animData") }
     var firstFocus = true
+    var anim:ValueAnimator? = null
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (firstFocus && hasFocus) {
-            startShareAnim(csLayout, animData)
+           anim =  startShareAnim(csLayout, animData)
         }
         firstFocus = false
     }
 
     override fun finish() {
-        finishShareAnim(csLayout, animData, onAnimEnd = {
-            superFinish()
-        })
+        if (anim!=null&& anim?.isRunning == true)
+            return
+        finishShareAnim(csLayout, animData, onAnimEnd = { superFinish() })
     }
 
     fun superFinish() {
