@@ -2,6 +2,7 @@ package com.eericxu.cslayout
 
 import android.arch.lifecycle.*
 import android.arch.lifecycle.Lifecycle.Event.*
+import android.util.Log
 
 /**
  * Created by Eericxu on 2018-04-11.
@@ -10,7 +11,7 @@ import android.arch.lifecycle.Lifecycle.Event.*
  */
 open class LifeObserver : GenericLifecycleObserver {
     override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event?) {
-//        Log.i("LifeObserver:${event?.name}")
+        Log.i("Eericxu","LifeObserver:${event?.name}")
         if (source != null && event != null)
             onAny(source, event)
         if (event != null && event == Lifecycle.Event.ON_DESTROY)
