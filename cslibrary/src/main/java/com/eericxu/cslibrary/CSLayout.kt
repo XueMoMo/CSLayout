@@ -6,7 +6,10 @@ import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.util.Log
 
-class CSLayout : ConstraintLayout {
+class CSLayout : ConstraintLayout,CSInterface {
+    override fun csHelper(): CSHelper {
+        return csHelper
+    }
 
     val csHelper = CSHelper()
 

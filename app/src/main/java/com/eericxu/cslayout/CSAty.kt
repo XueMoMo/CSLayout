@@ -1,12 +1,18 @@
 package com.eericxu.cslayout
 
 import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.graphics.Point
+import android.graphics.PointF
 import android.os.Bundle
+import android.view.Display
+import android.view.View
 import com.bumptech.glide.Glide
-import com.eericxu.cslibrary.AnimData
-import com.eericxu.cslibrary.finishShareAnim
-import com.eericxu.cslibrary.startShareAnim
+import com.eericxu.cslibrary.createAnimator
+import com.eericxu.cslibrary.keyparms.KeyParm
+import com.eericxu.cslibrary.rectInWindow
+import com.eericxu.cslibrary.shareAnim
 import kotlinx.android.synthetic.main.aty_cs.*
 
 class CSAty : BaseAty() {
@@ -14,28 +20,43 @@ class CSAty : BaseAty() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.aty_cs)
 
-        iv_cover.layoutParams.height = animData.rect.height()
-        iv_cover.layoutParams = iv_cover.layoutParams
+        val parm = intent.getParcelableExtra<KeyParm>("imgView")
+        val params = iv_cover.layoutParams
+        val p = Point()
+        window.windowManager.defaultDisplay.getSize(p)
+        params.height = (p.x * (parm.rect.height() * 1f / parm.rect.width())).toInt()
+        iv_cover.layoutParams = params
         Glide.with(this)
                 .load(intent.getIntExtra("img", R.mipmap.img_1))
                 .into(iv_cover)
     }
 
-    val animData by lazy { intent.getParcelableExtra<AnimData>("animData") }
     var firstFocus = true
-    var anim:Animator? = null
+    var anim: Animator? = null
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (firstFocus && hasFocus) {
-           anim =  startShareAnim(csLayout, animData,1000)
+            anim = shareAnim(
+                    createAnimator(true, intent, "csLayout", csLayout),
+                    createAnimator(true, intent, "imgView", iv_cover)
+            )
         }
         firstFocus = false
     }
 
     override fun finish() {
-        if (anim!=null&& anim?.isRunning == true)
+        if (anim != null && anim?.isRunning == true)
             return
-        finishShareAnim(csLayout, animData,1000, onAnimEnd = { superFinish() })
+        val animator = createAnimator(false, intent, "imgView", iv_cover)
+        (animator as ValueAnimator).addUpdateListener {
+            tv_content.translationY = iv_cover.translationY
+        }
+        shareAnim(
+                createAnimator(false, intent, "csLayout", csLayout),
+                animator,
+                onAnimEnd = {
+                    superFinish()
+                })
     }
 
     fun superFinish() {

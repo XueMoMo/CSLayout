@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="3sp"
