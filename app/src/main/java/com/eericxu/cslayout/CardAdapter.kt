@@ -31,7 +31,7 @@ class CardAdapter : RecyclerView.Adapter<BaseHolder>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return R.layout.item_one
+        return if (position % 3 < 1) R.layout.item_one else R.layout.item_two
     }
 
     override fun onBindViewHolder(holder: BaseHolder, position: Int) {
@@ -42,23 +42,6 @@ class CardAdapter : RecyclerView.Adapter<BaseHolder>() {
 
         val ivCover = holder.getView<ImageView>(R.id.iv_cover)
         ivCover?.apply {
-            //            val target = object : SimpleTarget<Bitmap>() {
-//                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-//                    ivCover.setImageBitmap(resource)
-//                }
-//            }
-//            val options = RequestOptions().transform(object : BitmapTransformation() {
-//                override fun updateDiskCacheKey(messageDigest: MessageDigest) {
-//                }
-//                override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap {
-//                    val palette = Palette.from(toTransform).generate()
-//                    val color = palette.getLightVibrantColor(Color.GRAY)
-//                    val aColor = Color.argb(200, Color.red(color), Color.green(color), Color.blue(color))
-//                    csHelper.mShadowColor = aColor
-//                    csHelper.refresh()
-//                    return toTransform
-//                }
-//            })
             Glide
                     .with(holder.itemView)
                     .load(res)

@@ -1,5 +1,6 @@
 package com.eericxu.cslayout
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.os.Bundle
 import com.bumptech.glide.Glide
@@ -13,8 +14,7 @@ class CSAty : BaseAty() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.aty_cs)
 
-        val height = animData.rect.height()
-        iv_cover.layoutParams.height = height
+        iv_cover.layoutParams.height = animData.rect.height()
         iv_cover.layoutParams = iv_cover.layoutParams
         Glide.with(this)
                 .load(intent.getIntExtra("img", R.mipmap.img_1))
@@ -23,11 +23,11 @@ class CSAty : BaseAty() {
 
     val animData by lazy { intent.getParcelableExtra<AnimData>("animData") }
     var firstFocus = true
-    var anim:ValueAnimator? = null
+    var anim:Animator? = null
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (firstFocus && hasFocus) {
-           anim =  startShareAnim(csLayout, animData)
+           anim =  startShareAnim(csLayout, animData,1000)
         }
         firstFocus = false
     }
@@ -35,11 +35,11 @@ class CSAty : BaseAty() {
     override fun finish() {
         if (anim!=null&& anim?.isRunning == true)
             return
-        finishShareAnim(csLayout, animData, onAnimEnd = { superFinish() })
+        finishShareAnim(csLayout, animData,1000, onAnimEnd = { superFinish() })
     }
 
     fun superFinish() {
         super.finish()
-        overridePendingTransition(0, 0)
+        overridePendingTransition(0, R.anim.exit_fade)
     }
 }
