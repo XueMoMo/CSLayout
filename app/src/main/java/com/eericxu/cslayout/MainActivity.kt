@@ -16,8 +16,8 @@ class MainActivity : BaseAty() {
                 adapter.onResume()
             }
 
-            override fun onStop() {
-                adapter.onStop()
+            override fun onPause() {
+                adapter.onPause()
             }
         })
     }

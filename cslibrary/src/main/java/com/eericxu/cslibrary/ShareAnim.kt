@@ -105,6 +105,7 @@ inline fun finishShareAnim(csLayout: CSLayout?, animData: AnimData, duration: Lo
         helper.mCornerBottomLeft = animData.csParms.mCornerBottomLeft * bais
         csLayout.csHelper.refresh()
         csLayout.invalidate()
+
     }
     anim.addListener(object :SimpleAnimLis(){
         override fun onAnimationEnd(animation: Animator?) {

@@ -85,8 +85,8 @@ class CardAdapter : RecyclerView.Adapter<BaseHolder>() {
 
     }
 
-    fun onStop(){
-        clickView?.visibility = View.INVISIBLE
+    fun onPause(){
+        clickView?.postDelayed({clickView?.visibility = View.INVISIBLE} ,100)
     }
     fun onResume() {
         clickView?.visibility = View.VISIBLE
