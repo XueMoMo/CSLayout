@@ -1,6 +1,7 @@
 package com.eericxu.cslibrary.anim
 
 import android.animation.ValueAnimator
+import android.support.v4.math.MathUtils
 import android.view.View
 import com.eericxu.cslibrary.keyparms.KeyParm
 
@@ -16,8 +17,9 @@ class ViewAnim(val isStart: Boolean, val v: View, val from: KeyParm, val to: Key
 
         addUpdateListener {
             val value = it.animatedValue as Float
+            val clamp = MathUtils.clamp(value, 0f, 1f)
             if (translationX != 0)
-                v.translationX = translationX * value
+                v.translationX = translationX * clamp
             if (translationY != 0)
                 v.translationY = translationY * value
             if (scale != 1f) {

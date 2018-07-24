@@ -8,7 +8,9 @@ import android.graphics.PointF
 import android.os.Bundle
 import android.view.Display
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.eericxu.cslibrary.ScaleViewGesture
 import com.eericxu.cslibrary.createAnimator
 import com.eericxu.cslibrary.keyparms.KeyParm
 import com.eericxu.cslibrary.rectInWindow
@@ -29,6 +31,10 @@ class CSAty : BaseAty() {
         Glide.with(this)
                 .load(intent.getIntExtra("img", R.mipmap.img_1))
                 .into(iv_cover)
+
+        ScaleViewGesture(this).bindToView(iv_cover,csLayout)?.onClick= {
+            Toast.makeText(it.context,"Click",Toast.LENGTH_SHORT).show()
+        }
     }
 
     var firstFocus = true

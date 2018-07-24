@@ -40,7 +40,7 @@ inline fun createIntentDef(intent: Intent, vararg keyViews: Pair<String, View>):
 }
 
 inline fun createIntent(intent: Intent, vararg keyParm: KeyParm): Intent {
-    return createIntent(intent,keyParm.asList())
+    return createIntent(intent, keyParm.asList())
 }
 
 inline fun createIntent(intent: Intent, keyParms: List<KeyParm>): Intent {
@@ -51,7 +51,7 @@ inline fun createIntent(intent: Intent, keyParms: List<KeyParm>): Intent {
 
 inline fun createAnimator(isStart: Boolean, intent: Intent, key: String, v: View,
                           duration: Long = 500,
-                          interpolator: Interpolator = BezierInterpolator()): Animator {
+                          interpolator: Interpolator = BezierInterpolator(0f, 1f, 0f, 1f)): Animator {
     val anim: Animator = when (v) {
         is CSInterface -> CSViewAnim(isStart, v, intent.getParcelableExtra(key), CSKeyParm(key, v.rectInWindow(), CSParms()))
         else -> ViewAnim(isStart, v, intent.getParcelableExtra(key), KeyParm(key, v.rectInWindow()))

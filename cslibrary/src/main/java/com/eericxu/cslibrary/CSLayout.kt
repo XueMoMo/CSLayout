@@ -24,7 +24,6 @@ class CSLayout : ConstraintLayout,CSInterface {
 
     var isDrawed = false
     override fun draw(canvas: Canvas?) {
-//        Log.e("Draw", "" + (canvas == null))
         isDrawed = true
         csHelper.drawBefore(canvas,isInEditMode)
         super.draw(canvas)
@@ -33,7 +32,6 @@ class CSLayout : ConstraintLayout,CSInterface {
     }
 
     override fun dispatchDraw(canvas: Canvas?) {
-//        Log.e("dispatchDraw", "" + (canvas == null))
         if (isDrawed)
             super.dispatchDraw(canvas)
         else {
