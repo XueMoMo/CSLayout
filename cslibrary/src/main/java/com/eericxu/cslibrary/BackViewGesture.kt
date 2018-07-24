@@ -12,7 +12,7 @@ import android.view.*
 /**
  * Created by Eericxu on 2018-03-16.
  */
-class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener(), View.OnTouchListener, View.OnAttachStateChangeListener {
+class BackViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener(), View.OnTouchListener, View.OnAttachStateChangeListener {
     override fun onViewDetachedFromWindow(v: View?) {
 
     }
@@ -24,13 +24,15 @@ class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener()
     val isNVersion by lazy { Build.VERSION.SDK_INT == Build.VERSION_CODES.N }
 
 
-    lateinit var mView: View
-    fun bindToView(touchView: View?, scaleView: View?): ScaleViewGesture? {
-        if (touchView == null || scaleView == null)
+    var mView: View? = null
+
+
+    fun bindToView(csLayout: CSInterface?): BackViewGesture? {
+        if (csLayout == null)
             return null
-        touchView.setOnTouchListener(this@ScaleViewGesture)
-        touchView.addOnAttachStateChangeListener(this)
-        mView = scaleView
+        mView = csLayout as View
+        csLayout.setOnTouchListener(this@BackViewGesture)
+        mView?.addOnAttachStateChangeListener(this)
         return this
     }
 
@@ -46,7 +48,6 @@ class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener()
             MotionEvent.ACTION_DOWN -> {
                 XD = event.x
                 YD = event.y
-                toScale()
             }
             MotionEvent.ACTION_UP -> {
                 toRecoverClick()
@@ -56,6 +57,12 @@ class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener()
             }
         }
         return gesture.onTouchEvent(event)
+    }
+
+    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+
+
+            return super.onScroll(e1, e2, distanceX, distanceY)
     }
 
     override fun onDown(e: MotionEvent?): Boolean {
@@ -76,7 +83,7 @@ class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener()
         }
 
         override fun onAnimationEnd(animation: Animator?) {
-            onClick(mView)
+//            onClick(mView)
         }
 
         override fun onAnimationCancel(animation: Animator?) {
@@ -89,7 +96,7 @@ class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener()
     //恢复
     private fun toRecoverClick() {
         if (isNVersion) {
-            onClick(mView)
+//            onClick(mView)
             return
         }
         if (animScale.isRunning) {
@@ -135,12 +142,12 @@ class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener()
         }
     }
 
-    fun setCustumScale(scale: Float): ScaleViewGesture {
+    fun setCustumScale(scale: Float): BackViewGesture {
         this.scale = scale
         return this
     }
 
-    fun setCustumScale(scaleProperty: Property<View, Float>): ScaleViewGesture {
+    fun setCustumScale(scaleProperty: Property<View, Float>): BackViewGesture {
         propertyScale = scaleProperty
         return this
     }
@@ -148,9 +155,9 @@ class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener()
     private fun recover() {
         if (animScale.isRunning)
             animScale.cancel()
-        mView.postDelayed({
-            mView.scaleX = 1.0f
-            mView.scaleY = 1.0f
+        mView?.postDelayed({
+            mView?.scaleX = 1.0f
+            mView?.scaleY = 1.0f
         }, 200)
     }
 

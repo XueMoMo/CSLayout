@@ -5,8 +5,8 @@ import android.graphics.PathMeasure
 import android.view.animation.Interpolator
 
 class BezierInterpolator(
-        x1: Float = 0.00f, y1: Float = 1.50f,
-        x2: Float = 0.09f, y2: Float = 0.95f) : Interpolator {
+        x1: Float = 0.00f, y1: Float = 1.10f,
+        x2: Float = 0.00f, y2: Float = 0.99f) : Interpolator {
 
     val path = Path()
     val measure = PathMeasure()

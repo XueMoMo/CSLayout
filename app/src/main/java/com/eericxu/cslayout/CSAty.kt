@@ -1,6 +1,7 @@
 package com.eericxu.cslayout
 
 import android.animation.Animator
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.graphics.Point
@@ -32,9 +33,15 @@ class CSAty : BaseAty() {
                 .load(intent.getIntExtra("img", R.mipmap.img_1))
                 .into(iv_cover)
 
-        ScaleViewGesture(this).bindToView(iv_cover,csLayout)?.onClick= {
-            Toast.makeText(it.context,"Click",Toast.LENGTH_SHORT).show()
+        ScaleViewGesture(this).bindToView(iv_cover, csLayout)?.onClick = {
+            Toast.makeText(it.context, "Click", Toast.LENGTH_SHORT).show()
         }
+
+        val builder = StringBuilder()
+        for (i in 0..100) {
+            builder.append("以敦煌为圆心的东北东\n")
+        }
+        tv_content.text = builder.toString()
     }
 
     var firstFocus = true
@@ -42,9 +49,16 @@ class CSAty : BaseAty() {
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (firstFocus && hasFocus) {
+            val animator = createAnimator(true, intent, "imgView", iv_cover)
+            (animator as ValueAnimator).addUpdateListener {
+                tv_content.translationY = iv_cover.translationY * 0.6f
+                tv_content.translationX = iv_cover.translationX
+            }
+
             anim = shareAnim(
                     createAnimator(true, intent, "csLayout", csLayout),
-                    createAnimator(true, intent, "imgView", iv_cover)
+                    createAnimator(true, intent, "tvTit", tv_title),
+                    animator
             )
         }
         firstFocus = false
@@ -53,12 +67,15 @@ class CSAty : BaseAty() {
     override fun finish() {
         if (anim != null && anim?.isRunning == true)
             return
+
         val animator = createAnimator(false, intent, "imgView", iv_cover)
         (animator as ValueAnimator).addUpdateListener {
-            tv_content.translationY = iv_cover.translationY
+            tv_content.translationY = iv_cover.translationY * 0.6f
+            tv_content.translationX = iv_cover.translationX
         }
         shareAnim(
                 createAnimator(false, intent, "csLayout", csLayout),
+                createAnimator(false, intent, "tvTit", tv_title),
                 animator,
                 onAnimEnd = {
                     superFinish()

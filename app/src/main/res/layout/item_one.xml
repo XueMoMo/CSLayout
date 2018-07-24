@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="350dp"
 
-    app:cs_corner_overlay="false"
     app:cs_clip="20dp"
     app:cs_corner="20dp"
+    app:cs_corner_overlay="false"
     app:cs_shadow_color="#440000ff"
-    app:cs_shadow_size="20dp">
+    app:cs_shadow_size="15dp">
 
     <ImageView
         android:id="@+id/iv_cover"
@@ -17,5 +17,14 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/img_4" />
 
-
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:text="拉克酒店"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </com.eericxu.cslibrary.CSLayout>
