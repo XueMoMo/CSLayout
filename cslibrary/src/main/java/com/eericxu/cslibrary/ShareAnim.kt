@@ -51,7 +51,7 @@ inline fun createIntent(intent: Intent, keyParms: List<KeyParm>): Intent {
 
 
 inline fun createAnimator(isStart: Boolean, intent: Intent, key: String, v: View,
-                          duration: Long = 600,
+                          duration: Long = 400,
                           interpolator: Interpolator = BezierInterpolator()
 ): Animator {
     val anim: Animator = when (v) {
