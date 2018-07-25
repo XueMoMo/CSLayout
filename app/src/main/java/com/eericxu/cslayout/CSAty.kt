@@ -1,21 +1,16 @@
 package com.eericxu.cslayout
 
 import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.graphics.Point
-import android.graphics.PointF
 import android.os.Bundle
-import android.view.Display
-import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.eericxu.cslibrary.ScaleViewGesture
 import com.eericxu.cslibrary.createAnimator
+import com.eericxu.cslibrary.finishShareAnim
 import com.eericxu.cslibrary.keyparms.KeyParm
-import com.eericxu.cslibrary.rectInWindow
-import com.eericxu.cslibrary.shareAnim
+import com.eericxu.cslibrary.startShareAnim
 import kotlinx.android.synthetic.main.aty_cs.*
 
 class CSAty : BaseAty() {
@@ -55,8 +50,8 @@ class CSAty : BaseAty() {
                 tv_content.translationX = iv_cover.translationX
             }
 
-            anim = shareAnim(
-                    createAnimator(true, intent, "csLayout", csLayout),
+            anim = startShareAnim(
+                    csLayout,
                     createAnimator(true, intent, "tvTit", tv_title),
                     animator
             )
@@ -73,8 +68,8 @@ class CSAty : BaseAty() {
             tv_content.translationY = iv_cover.translationY * 0.6f
             tv_content.translationX = iv_cover.translationX
         }
-        shareAnim(
-                createAnimator(false, intent, "csLayout", csLayout),
+        finishShareAnim(
+                csLayout,
                 createAnimator(false, intent, "tvTit", tv_title),
                 animator,
                 onAnimEnd = {

@@ -39,6 +39,10 @@ inline fun createKeyParm(key: String, v: View): KeyParm {
 inline fun createIntentDef(intent: Intent, vararg keyViews: Pair<String, View>): Intent {
     return createIntent(intent, keyViews.map { createKeyParm(it.first, it.second) })
 }
+inline fun createIntentDef(intent: Intent,csInterface: CSInterface,vararg keyViews: Pair<String, View>): Intent {
+    val parm = createKeyParm("csLayout", csInterface as View)
+    return createIntent(intent, keyViews.map { createKeyParm(it.first, it.second) }.plus(parm))
+}
 
 inline fun createIntent(intent: Intent, vararg keyParm: KeyParm): Intent {
     return createIntent(intent, keyParm.asList())
@@ -51,8 +55,8 @@ inline fun createIntent(intent: Intent, keyParms: List<KeyParm>): Intent {
 
 
 inline fun createAnimator(isStart: Boolean, intent: Intent, key: String, v: View,
-                          duration: Long = 400,
-                          interpolator: Interpolator = BezierInterpolator()
+                          duration: Long = 600,
+                          interpolator: Interpolator = OffsetInterpolator()
 ): Animator {
     val anim: Animator = when (v) {
         is CSInterface -> CSViewAnim(isStart, v, intent.getParcelableExtra(key), CSKeyParm(key, v.rectInWindow(), CSParms()))
@@ -82,6 +86,8 @@ inline fun shareAnim(vararg anims: Animator, crossinline onAnimEnd: () -> Unit =
 }
 
 inline fun shareAnim(anims: List<Animator>, crossinline onAnimEnd: () -> Unit = {}): Animator {
+
+
     val set = AnimatorSet()
     set.playTogether(anims)
     set.addListener(object : SimpleAnimLis() {
@@ -91,4 +97,17 @@ inline fun shareAnim(anims: List<Animator>, crossinline onAnimEnd: () -> Unit = 
     })
     set.start()
     return set
+}
+
+inline fun Activity.startShareAnim(csInterface: CSInterface, vararg anims: Animator, crossinline onAnimEnd: () -> Unit = {}): Animator {
+    val animator = createAnimator(true, intent, "csLayout", csInterface as View)
+    val list = anims.toMutableList()
+    list.add(animator)
+    return shareAnim(list, onAnimEnd)
+}
+inline fun Activity.finishShareAnim(csInterface: CSInterface, vararg anims: Animator, crossinline onAnimEnd: () -> Unit = {}): Animator {
+    val animator = createAnimator(false, intent, "csLayout", csInterface as View)
+    val list = anims.toMutableList()
+    list.add(animator)
+    return shareAnim(list, onAnimEnd)
 }

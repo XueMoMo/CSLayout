@@ -78,14 +78,13 @@ class CardAdapter : RecyclerView.Adapter<BaseHolder>() {
 //                })
                 .bindToView(csLayout, csLayout)
                 ?.onClick = {
-                    val ctx = it.context
-                    clickView = csLayout
-                    val intent = Intent(ctx, CSAty::class.java).putExtra("img", res)
-                    ctx.startActivity(createIntentDef(intent,
-                            "csLayout" to csLayout as View,
-                            "imgView" to ivCover as View,
-                            "tvTit" to tvTit as View
-                    ))
+            val ctx = it.context
+            clickView = csLayout
+            val intent = Intent(ctx, CSAty::class.java).putExtra("img", res)
+            ctx.startActivity(createIntentDef(intent, csLayout,
+                    "imgView" to ivCover as View,
+                    "tvTit" to tvTit as View
+            ))
         }
 
     }
