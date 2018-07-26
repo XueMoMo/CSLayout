@@ -100,7 +100,7 @@
     <attr name="cs_corner_overlay_color" format="color" />  //覆盖模式时 覆盖的颜色
     
 
-# 注意 #
+# 注意: #
 
  ## 阴影是绘制在裁切的边缘上 #
  
@@ -118,5 +118,5 @@
 
 ![圆角和阴影效果](/demoImg/1023565322.jpg)
 
-![圆角和阴影效果](/demoImg/shareDemo.mp4)
-    
+# ![LICENSE](/LICENSE)  #
+
