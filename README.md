@@ -6,6 +6,8 @@
   不同于Android官方的共享动画 支持圆角变换
   支持自定义传入参数 自定义Animator效果。
   具体请运行项目查看MainActivity还未写文档。
+  
+![圆角和阴影效果](/demoImg/1023565322.jpg)
 ## 使用方式 ##
 ### 1 将cslibrary 添加到项目 ###
 
@@ -103,7 +105,7 @@
 # 注意: #
 
  ## 阴影是绘制在裁切的边缘上 #
- 
+ ## 阴影长度按最大阴影大小绘制 通过调整绘制区域控制各边的阴影长度 ##
  所以要设置阴影需要先设置裁切大小
   
   cs_clip >= cs_shadow_size   
@@ -112,11 +114,7 @@
   cs_clip_right >= cs_shadow_size_right   
   cs_clip_bottom >= cs_shadow_size_bottom
   
- ## 阴影长度安最大阴影大小绘制 通过调整绘制区域控制个边的阴影长度 ##
      
-## 效果图： ##
 
-![圆角和阴影效果](/demoImg/1023565322.jpg)
-
-# ![LICENSE](/LICENSE)  #
+# [LICENSE](/LICENSE)  #
 
