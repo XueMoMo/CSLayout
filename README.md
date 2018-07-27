@@ -20,7 +20,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
         
         	dependencies {
-        	        implementation 'com.github.XueMoMo:CSLayout:v1.0.0'
+        	        implementation 'com.github.XueMoMo:CSLayout:v1.0.1'
         	}
 
 ### 2.1 布局文件中使用  CSLayout ###
