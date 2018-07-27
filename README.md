@@ -9,8 +9,9 @@
   
 ![圆角和阴影效果](/demoImg/1023565322.jpg)
 ## 使用方式 ##
-### 1 将cslibrary 添加到项目 ###
 
+### 1 将cslibrary 添加到项目 ###
+[![](https://jitpack.io/v/XueMoMo/CSLayout.svg)](https://jitpack.io/#XueMoMo/CSLayout)
 ### 2.1 布局文件中使用  CSLayout ###
 
         <com.eericxu.cslibrary.CSLayout xmlns:android="http://schemas.android.com/apk/res/android"

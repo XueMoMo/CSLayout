@@ -4,8 +4,7 @@
     android:id="@+id/csLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    app:cs_corner_overlay="false">
+    android:background="@color/colorWhite">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

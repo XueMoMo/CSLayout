@@ -12,7 +12,7 @@ import java.lang.Exception
 class CSHelper {
 
     var mCircle = false             //是否圆形
-    var mCornerOverlay = true      //覆盖模式
+    var mCornerOverlay = false      //覆盖模式
     var mCornerOverlayColor = Color.WHITE
     var mCorner = 0f                //圆角
     var mCornerLeftTop = 0f
