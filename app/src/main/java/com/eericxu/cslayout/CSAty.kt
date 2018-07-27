@@ -40,6 +40,7 @@ class CSAty : BaseAty() {
     }
 
     var anim: Animator? = null
+    //父类中重写onWindowFocusChanged 当window第一次获取焦点时执行
     override fun onFirstFocus() {
         val animator = createAnimator(true, intent, "imgView", iv_cover)
         (animator as ValueAnimator).addUpdateListener {

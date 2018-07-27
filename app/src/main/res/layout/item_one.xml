@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.eericxu.cslibrary.CSLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="350dp"
-
-    app:cs_clip="10dp"
-    app:cs_corner="10dp"
-    app:cs_shadow_color="#440000ff"
-    app:cs_shadow_size="10dp">
-
-    <ImageView
-        android:id="@+id/iv_cover"
+    <com.eericxu.cslibrary.CSLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/img_4" />
+        android:layout_height="350dp"
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="CSLayout 共享动画"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-</com.eericxu.cslibrary.CSLayout>
+        app:cs_clip="10dp"
+        app:cs_corner="10dp"
+        app:cs_shadow_color="#440000ff"
+        app:cs_shadow_size="10dp">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_4" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:text="CSLayout 共享动画"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </com.eericxu.cslibrary.CSLayout>
