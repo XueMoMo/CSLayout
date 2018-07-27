@@ -39,30 +39,25 @@ class CSAty : BaseAty() {
         tv_content.text = builder.toString()
     }
 
-    var firstFocus = true
     var anim: Animator? = null
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (firstFocus && hasFocus) {
-            val animator = createAnimator(true, intent, "imgView", iv_cover)
-            (animator as ValueAnimator).addUpdateListener {
-                tv_content.translationY = iv_cover.translationY * 0.6f
-                tv_content.translationX = iv_cover.translationX
-            }
-
-            anim = startShareAnim(
-                    csLayout,
-                    createAnimator(true, intent, "tvTit", tv_title),
-                    animator
-            )
+    override fun onFirstFocus() {
+        val animator = createAnimator(true, intent, "imgView", iv_cover)
+        (animator as ValueAnimator).addUpdateListener {
+            tv_content.translationY = iv_cover.translationY * 0.6f
+            tv_content.translationX = iv_cover.translationX
         }
-        firstFocus = false
+
+        anim = startShareAnim(
+                csLayout,
+                createAnimator(true, intent, "tvTit", tv_title),
+                animator
+        )
     }
+
 
     override fun finish() {
         if (anim != null && anim?.isRunning == true)
             return
-
         val animator = createAnimator(false, intent, "imgView", iv_cover)
         (animator as ValueAnimator).addUpdateListener {
             tv_content.translationY = iv_cover.translationY * 0.6f
@@ -77,7 +72,7 @@ class CSAty : BaseAty() {
                 })
     }
 
-    fun superFinish() {
+    private fun superFinish() {
         super.finish()
         overridePendingTransition(0, R.anim.exit_fade)
     }

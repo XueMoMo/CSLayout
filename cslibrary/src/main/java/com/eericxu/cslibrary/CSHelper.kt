@@ -31,7 +31,7 @@ class CSHelper {
             if (value == field)
                 return
             field = value
-            shadowColorChanged  = true
+            shadowColorChanged = true
         }
     var mRealShadowSize = 0f
 
@@ -179,6 +179,7 @@ class CSHelper {
         createShader()
     }
 
+    private val xfermode = PorterDuffXfermode(PorterDuff.Mode.SCREEN)
     fun drawBefore(c: Canvas?, isEditMode: Boolean = false) {
         if (c == null)
             return
@@ -189,6 +190,7 @@ class CSHelper {
         }
         if (mCornerOverlay) return
         c.clipPath(mClipPath)
+
     }
 
 
@@ -197,7 +199,16 @@ class CSHelper {
         if (mCornerOverlay && !isEditMode) {
             mClipPath.fillType = Path.FillType.INVERSE_WINDING
             mPaint.color = mCornerOverlayColor
+            mPaint.style = Paint.Style.FILL
             c.drawPath(mClipPath, mPaint)
+        }
+        if (mCorner > 0) {
+            mPaint.strokeWidth = 1f
+            mPaint.style = Paint.Style.STROKE
+            mPaint.color = Color.WHITE
+            mPaint.xfermode = xfermode
+            c.drawPath(mClipPath, mPaint)
+            mPaint.xfermode = null
         }
         c.restore()
         if (mRealShadowSize > 0 && !isEditMode) {
@@ -206,6 +217,7 @@ class CSHelper {
 //            Log.e("drawShadow:", "" + mRealShadowSize)
             c.clipPath(mClipPath, Region.Op.DIFFERENCE)
             mPaint.color = Color.WHITE
+            mPaint.style = Paint.Style.FILL
             c.drawBitmap(mShadowBitmap, 0f, 0f, mPaint)
             c.restore()
         }
