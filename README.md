@@ -12,6 +12,20 @@
 
 ### 1 将cslibrary 添加到项目 ###
 [![](https://jitpack.io/v/XueMoMo/CSLayout.svg)](https://jitpack.io/#XueMoMo/CSLayout)
+Add it in your root build.gradle at the end of repositories:
+
+        	allprojects {
+        		repositories {
+        			...
+        			maven { url 'https://jitpack.io' }
+        		}
+        	}
+Step 2. Add the dependency
+        
+        	dependencies {
+        	        implementation 'com.github.XueMoMo:CSLayout:v1.0.0'
+        	}
+
 ### 2.1 布局文件中使用  CSLayout ###
 
         <com.eericxu.cslibrary.CSLayout xmlns:android="http://schemas.android.com/apk/res/android"
