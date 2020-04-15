@@ -1,10 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 package com.eericxu.cslibrary
 
 import android.content.Context
 import android.graphics.*
 import android.os.Build
 import android.util.AttributeSet
-import android.view.View
 
 class CSHelper {
 
@@ -57,12 +58,12 @@ class CSHelper {
     }
 
 
-    fun initAttr(view: View, ctx: Context?, arrts: AttributeSet?) {
-        if (ctx == null || arrts == null)
+    fun initAttr(ctx: Context?, attr: AttributeSet?) {
+        if (ctx == null || attr == null)
             return
-        val array = ctx.obtainStyledAttributes(arrts, R.styleable.CSAttrs)
+        val array = ctx.obtainStyledAttributes(attr, R.styleable.CSAttrs)
         try {
-            array?.apply {
+            array.apply {
                 mCorner = getDimensionPixelSize(R.styleable.CSAttrs_cs_corner, 0).toFloat()
                 val corner = mCorner.toInt()
                 mCornerLeftTop = getDimensionPixelSize(R.styleable.CSAttrs_cs_corner_top_left, corner).toFloat()
@@ -91,7 +92,7 @@ class CSHelper {
                 mClipR = getDimensionPixelSize(R.styleable.CSAttrs_cs_clip_right, clip).toFloat()
                 mClipB = getDimensionPixelSize(R.styleable.CSAttrs_cs_clip_bottom, clip).toFloat()
             }
-            array?.recycle()
+            array.recycle()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -116,7 +117,7 @@ class CSHelper {
 
     }
 
-    fun onSizeChange(view: View, w: Int, h: Int) {
+    fun onSizeChange(w: Int, h: Int) {
         mWidth = w
         mHeight = h
         computePath()
@@ -226,7 +227,7 @@ class CSHelper {
         }
     }
 
-    fun max(vararg value: Float): Float {
+    private fun max(vararg value: Float): Float {
         var max = value[0]
         value.forEach {
             if (it > max)

@@ -14,11 +14,11 @@ class CSLayout : ConstraintLayout,CSInterface {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        csHelper.initAttr(this,context, attrs)
+        csHelper.initAttr(context, attrs)
     }
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        csHelper.initAttr(this,context, attrs)
+        csHelper.initAttr(context, attrs)
     }
 
     private var isDrawled = false
@@ -43,6 +43,6 @@ class CSLayout : ConstraintLayout,CSInterface {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        csHelper.onSizeChange(this,w, h)
+        csHelper.onSizeChange(w, h)
     }
 }
