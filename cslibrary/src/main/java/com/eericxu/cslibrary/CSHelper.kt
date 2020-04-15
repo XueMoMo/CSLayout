@@ -2,12 +2,9 @@ package com.eericxu.cslibrary
 
 import android.content.Context
 import android.graphics.*
-import android.os.Parcel
-import android.os.Parcelable
+import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
-import java.lang.Exception
 
 class CSHelper {
 
@@ -166,9 +163,10 @@ class CSHelper {
                     mHeight - (max - mShadowSizeBottom + mClipB))
             mShadowPath.addRoundRect(mRectShadow, radii, Path.Direction.CW)
         }
-        val ageFix = 10f
-        mClipPath.moveTo(-ageFix, -ageFix)
-        mClipPath.moveTo(mWidth + ageFix, mHeight + ageFix)
+//        val ageFix = 10f
+//        mClipPath.moveTo(-ageFix, -ageFix)
+//        mClipPath.moveTo(mWidth + ageFix, mHeight + ageFix)
+
     }
 
 
@@ -179,7 +177,7 @@ class CSHelper {
         createShader()
     }
 
-    private val xfermode = PorterDuffXfermode(PorterDuff.Mode.SCREEN)
+    private val xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
     fun drawBefore(c: Canvas?, isEditMode: Boolean = false) {
         if (c == null)
             return
@@ -194,6 +192,7 @@ class CSHelper {
     }
 
 
+
     fun drawAfter(c: Canvas?, isEditMode: Boolean = false) {
         if (c == null) return
         if (mCornerOverlay && !isEditMode) {
@@ -205,7 +204,7 @@ class CSHelper {
         if (mCorner > 0) {
             mPaint.strokeWidth = 1f
             mPaint.style = Paint.Style.STROKE
-            mPaint.color = Color.WHITE
+            mPaint.color = Color.RED
             mPaint.xfermode = xfermode
             c.drawPath(mClipPath, mPaint)
             mPaint.xfermode = null
@@ -215,10 +214,14 @@ class CSHelper {
             c.save()
             mClipPath.fillType = Path.FillType.WINDING
 //            Log.e("drawShadow:", "" + mRealShadowSize)
-            c.clipPath(mClipPath, Region.Op.DIFFERENCE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                c.clipOutPath(mClipPath)
+            }else{
+                c.clipPath(mClipPath, Region.Op.DIFFERENCE)
+            }
             mPaint.color = Color.WHITE
             mPaint.style = Paint.Style.FILL
-            c.drawBitmap(mShadowBitmap, 0f, 0f, mPaint)
+            mShadowBitmap?.let { c.drawBitmap(it, 0f, 0f, mPaint) }
             c.restore()
         }
     }

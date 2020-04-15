@@ -11,10 +11,10 @@ import android.view.View
 import android.view.animation.Interpolator
 import com.eericxu.cslibrary.anim.CSViewAnim
 import com.eericxu.cslibrary.anim.ViewAnim
-import com.eericxu.cslibrary.keyparms.CSKeyParm
-import com.eericxu.cslibrary.keyparms.KeyParm
+import com.eericxu.cslibrary.keyparms.CSKeyParams
+import com.eericxu.cslibrary.keyparms.KeyParams
 
-inline fun createKeyParm(key: String, v: View): KeyParm {
+inline fun createKeyParm(key: String, v: View): KeyParams {
     return when (v) {
         is CSInterface -> {
             val csHelper = v.csHelper()
@@ -28,10 +28,10 @@ inline fun createKeyParm(key: String, v: View): KeyParm {
             csParms.mCornerTopRight = csHelper.mCornerTopRight
             csParms.mCornerRightBottom = csHelper.mCornerRightBottom
             csParms.mCornerBottomLeft = csHelper.mCornerBottomLeft
-            CSKeyParm(key, v.rectInWindow(), csParms)
+            CSKeyParams(key, v.rectInWindow(), csParms)
         }
         else -> {
-            KeyParm(key, v.rectInWindow())
+            KeyParams(key, v.rectInWindow())
         }
     }
 }
@@ -44,11 +44,11 @@ inline fun createIntentDef(intent: Intent,csInterface: CSInterface,vararg keyVie
     return createIntent(intent, keyViews.map { createKeyParm(it.first, it.second) }.plus(parm))
 }
 
-inline fun createIntent(intent: Intent, vararg keyParm: KeyParm): Intent {
-    return createIntent(intent, keyParm.asList())
+inline fun createIntent(intent: Intent, vararg keyParms: KeyParams): Intent {
+    return createIntent(intent, keyParms.asList())
 }
 
-inline fun createIntent(intent: Intent, keyParms: List<KeyParm>): Intent {
+inline fun createIntent(intent: Intent, keyParms: List<KeyParams>): Intent {
     keyParms.forEach { intent.putExtra(it.key, it) }
     return intent
 }
@@ -59,8 +59,8 @@ inline fun createAnimator(isStart: Boolean, intent: Intent, key: String, v: View
                           interpolator: Interpolator = OffsetInterpolator()
 ): Animator {
     val anim: Animator = when (v) {
-        is CSInterface -> CSViewAnim(isStart, v, intent.getParcelableExtra(key), CSKeyParm(key, v.rectInWindow(), CSParms()))
-        else -> ViewAnim(isStart, v, intent.getParcelableExtra(key), KeyParm(key, v.rectInWindow()))
+        is CSInterface -> CSViewAnim(isStart, v, intent.getParcelableExtra(key), CSKeyParams(key, v.rectInWindow(), CSParms()))
+        else -> ViewAnim(isStart, v, intent.getParcelableExtra(key), KeyParams(key, v.rectInWindow()))
     }
     anim.duration = duration
     anim.interpolator = interpolator

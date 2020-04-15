@@ -2,9 +2,8 @@ package com.eericxu.cslibrary
 
 import android.content.Context
 import android.graphics.Canvas
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
-import android.util.Log
 
 class CSLayout : ConstraintLayout,CSInterface {
     override fun csHelper(): CSHelper {
@@ -22,9 +21,9 @@ class CSLayout : ConstraintLayout,CSInterface {
         csHelper.initAttr(this,context, attrs)
     }
 
-    var isDrawed = false
+    private var isDrawled = false
     override fun draw(canvas: Canvas?) {
-        isDrawed = true
+        isDrawled = true
         csHelper.drawBefore(canvas,isInEditMode)
         super.draw(canvas)
         csHelper.drawAfter(canvas,isInEditMode)
@@ -32,7 +31,7 @@ class CSLayout : ConstraintLayout,CSInterface {
     }
 
     override fun dispatchDraw(canvas: Canvas?) {
-        if (isDrawed)
+        if (isDrawled)
             super.dispatchDraw(canvas)
         else {
             csHelper.drawBefore(canvas,isInEditMode)

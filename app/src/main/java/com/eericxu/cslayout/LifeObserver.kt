@@ -1,7 +1,8 @@
 package com.eericxu.cslayout
 
-import android.arch.lifecycle.*
-import android.arch.lifecycle.Lifecycle.Event.*
+import android.annotation.SuppressLint
+import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle.Event.*
 import android.util.Log
 
 /**
@@ -9,8 +10,22 @@ import android.util.Log
  *
  * 生命周期回调
  */
+@SuppressLint("RestrictedApi")
 open class LifeObserver : GenericLifecycleObserver {
-    override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event?) {
+    open fun onCreate() {}
+
+    open fun onStart() {}
+
+    open fun onResume() {}
+
+    open fun onPause() {}
+
+    open fun onStop() {}
+
+    open fun onDestroy() {}
+
+    open fun onAny(source: LifecycleOwner, event: Lifecycle.Event) {}
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         Log.i("Eericxu","LifeObserver:${event?.name}")
         if (source != null && event != null)
             onAny(source, event)
@@ -27,18 +42,4 @@ open class LifeObserver : GenericLifecycleObserver {
             }
         }
     }
-
-    open fun onCreate() {}
-
-    open fun onStart() {}
-
-    open fun onResume() {}
-
-    open fun onPause() {}
-
-    open fun onStop() {}
-
-    open fun onDestroy() {}
-
-    open fun onAny(source: LifecycleOwner, event: Lifecycle.Event) {}
 }

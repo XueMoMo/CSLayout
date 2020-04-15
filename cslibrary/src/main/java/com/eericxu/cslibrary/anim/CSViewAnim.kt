@@ -1,12 +1,12 @@
 package com.eericxu.cslibrary.anim
 
 import android.animation.ValueAnimator
-import android.support.v4.math.MathUtils
+import androidx.core.math.MathUtils
 import android.view.View
 import com.eericxu.cslibrary.CSInterface
-import com.eericxu.cslibrary.keyparms.CSKeyParm
+import com.eericxu.cslibrary.keyparms.CSKeyParams
 
-class CSViewAnim(val isStart: Boolean, val v: CSInterface, val from: CSKeyParm, val to: CSKeyParm) : ValueAnimator(), BaseAnim<View, CSKeyParm> {
+class CSViewAnim(val isStart: Boolean, val v: CSInterface, val from: CSKeyParams, val to: CSKeyParams) : ValueAnimator(), BaseAnim<View, CSKeyParams> {
     val view = v as View
 
     init {

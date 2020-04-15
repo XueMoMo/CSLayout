@@ -1,14 +1,13 @@
 package com.eericxu.cslibrary.keyparms
 
-import android.animation.Animator
 import android.graphics.Rect
 import android.os.Parcel
 import android.os.Parcelable
 
-open class KeyParm :Parcelable{
+open class KeyParams :Parcelable{
     val key: String
     var rect: Rect
-    constructor(key: String, rect: Rect) {
+    constructor(key: String = "key", rect: Rect) {
         this.key = key
         this.rect = rect
     }
@@ -22,16 +21,14 @@ open class KeyParm :Parcelable{
         return 0
     }
 
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readParcelable(Rect::class.java.classLoader))
+    constructor(parcel: Parcel) : this(parcel.readString()!!, parcel.readParcelable(Rect::class.java.classLoader)!!)
 
-    companion object CREATOR : Parcelable.Creator<KeyParm> {
-        override fun createFromParcel(parcel: Parcel): KeyParm {
-            return KeyParm(parcel)
+    companion object CREATOR : Parcelable.Creator<KeyParams> {
+        override fun createFromParcel(parcel: Parcel): KeyParams {
+            return KeyParams(parcel)
         }
 
-        override fun newArray(size: Int): Array<KeyParm?> {
+        override fun newArray(size: Int): Array<KeyParams?> {
             return arrayOfNulls(size)
         }
     }

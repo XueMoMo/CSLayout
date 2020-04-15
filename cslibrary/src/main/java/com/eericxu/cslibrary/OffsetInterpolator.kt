@@ -2,7 +2,7 @@ package com.eericxu.cslibrary
 
 import android.graphics.Path
 import android.graphics.PathMeasure
-import android.support.v4.math.MathUtils
+import androidx.core.math.MathUtils
 import android.util.Log
 import android.view.animation.Interpolator
 

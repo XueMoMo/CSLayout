@@ -4,12 +4,13 @@ import android.animation.Animator
 import android.animation.ValueAnimator
 import android.graphics.Point
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.eericxu.cslibrary.ScaleViewGesture
 import com.eericxu.cslibrary.createAnimator
 import com.eericxu.cslibrary.finishShareAnim
-import com.eericxu.cslibrary.keyparms.KeyParm
+import com.eericxu.cslibrary.keyparms.KeyParams
 import com.eericxu.cslibrary.startShareAnim
 import kotlinx.android.synthetic.main.aty_cs.*
 
@@ -17,8 +18,8 @@ class CSAty : BaseAty() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.aty_cs)
-
-        val parm = intent.getParcelableExtra<KeyParm>("imgView")
+        csLayout.visibility = View.INVISIBLE
+        val parm = intent.getParcelableExtra<KeyParams>("imgView")
         val params = iv_cover.layoutParams
         val p = Point()
         window.windowManager.defaultDisplay.getSize(p)
@@ -47,7 +48,7 @@ class CSAty : BaseAty() {
             tv_content.translationY = iv_cover.translationY * 0.6f
             tv_content.translationX = iv_cover.translationX
         }
-
+        csLayout.visibility = View.VISIBLE
         anim = startShareAnim(
                 csLayout,
                 createAnimator(true, intent, "tvTit", tv_title),

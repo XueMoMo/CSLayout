@@ -1,11 +1,11 @@
 package com.eericxu.cslibrary.anim
 
 import android.animation.ValueAnimator
-import android.support.v4.math.MathUtils
+import androidx.core.math.MathUtils
 import android.view.View
-import com.eericxu.cslibrary.keyparms.KeyParm
+import com.eericxu.cslibrary.keyparms.KeyParams
 
-class ViewAnim(val isStart: Boolean, val v: View, val from: KeyParm, val to: KeyParm) : ValueAnimator(), BaseAnim<View, KeyParm> {
+class ViewAnim(val isStart: Boolean, val v: View, val from: KeyParams, val to: KeyParams) : ValueAnimator(), BaseAnim<View, KeyParams> {
 
     init {
         val start = if (isStart) 1f else 0f
@@ -33,11 +33,11 @@ class ViewAnim(val isStart: Boolean, val v: View, val from: KeyParm, val to: Key
         return v
     }
 
-    override fun from(): KeyParm {
+    override fun from(): KeyParams {
         return from
     }
 
-    override fun to(): KeyParm {
+    override fun to(): KeyParams {
         return to
     }
 

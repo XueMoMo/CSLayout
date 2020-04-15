@@ -1,17 +1,17 @@
 package com.eericxu.cslayout
 
-import android.support.annotation.DrawableRes
-import android.support.annotation.IdRes
-import android.support.annotation.Nullable
-import android.support.annotation.RawRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.Nullable
+import androidx.annotation.RawRes
+import androidx.recyclerview.widget.RecyclerView
 import android.util.SparseArray
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 
-class BaseHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val views: SparseArray<View> = SparseArray()
     fun <T : View> getView(@IdRes viewId: Int): T? {
         var view: View? = views.get(viewId)
