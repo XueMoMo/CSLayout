@@ -2,9 +2,9 @@ package com.eericxu.cslibrary
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import android.util.FloatProperty
 import android.util.Log
 import android.util.Property
 import android.view.*
@@ -36,16 +36,17 @@ class ScaleViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener()
 
     private val gesture = GestureDetector(ctx, this)
     var onClick: (View) -> Unit = {}
-    var scale = 0.93f
-    var XD = 0f
-    var YD = 0f
+    private var scale = 0.93f
+    private var xD = 0f
+    private var yD = 0f
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
         Log.i("onTouch:", "action:${event.action}")
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                XD = event.x
-                YD = event.y
+                xD = event.x
+                yD = event.y
                 toScale()
             }
             MotionEvent.ACTION_UP -> {

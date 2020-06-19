@@ -54,6 +54,7 @@ inline fun createIntent(intent: Intent, keyParms: List<KeyParams>): Intent {
 }
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 inline fun createAnimator(isStart: Boolean, intent: Intent, key: String, v: View,
                           duration: Long = 600,
                           interpolator: Interpolator = OffsetInterpolator()

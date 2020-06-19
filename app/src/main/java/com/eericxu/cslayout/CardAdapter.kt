@@ -2,15 +2,16 @@ package com.eericxu.cslayout
 
 //import android.support.v7.graphics.Palette
 import android.content.Intent
-import androidx.recyclerview.widget.RecyclerView
-import android.util.Property
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.eericxu.cslibrary.*
+import com.eericxu.cslibrary.CSLayout
+import com.eericxu.cslibrary.ScaleViewGesture
+import com.eericxu.cslibrary.createIntentDef
 
 class CardAdapter : RecyclerView.Adapter<BaseHolder>() {
 
@@ -30,7 +31,6 @@ class CardAdapter : RecyclerView.Adapter<BaseHolder>() {
 
     override fun onBindViewHolder(holder: BaseHolder, position: Int) {
         val csLayout = holder.itemView as CSLayout
-        val csHelper = csLayout.csHelper
         val res = imgs[position % 4]
         holder.setImageRes(R.id.iv_cover, res)
         val tvTit = holder.getView<TextView>(R.id.tv_title)

@@ -11,7 +11,7 @@ import android.util.Log
  * 生命周期回调
  */
 @SuppressLint("RestrictedApi")
-open class LifeObserver : GenericLifecycleObserver {
+open class LifeObserver : LifecycleEventObserver {
     open fun onCreate() {}
 
     open fun onStart() {}
@@ -25,12 +25,12 @@ open class LifeObserver : GenericLifecycleObserver {
     open fun onDestroy() {}
 
     open fun onAny(source: LifecycleOwner, event: Lifecycle.Event) {}
+
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        Log.i("Eericxu","LifeObserver:${event?.name}")
-        if (source != null && event != null)
-            onAny(source, event)
-        if (event != null && event == Lifecycle.Event.ON_DESTROY)
-            source?.lifecycle?.removeObserver(this)
+        Log.i("Eericxu","LifeObserver:${event.name}")
+        onAny(source, event)
+        if (event == ON_DESTROY)
+            source.lifecycle.removeObserver(this)
         when (event) {
             ON_START -> onStart()
             ON_CREATE -> onCreate()

@@ -2,8 +2,6 @@ package com.eericxu.cslibrary
 
 import android.graphics.Path
 import android.graphics.PathMeasure
-import androidx.core.math.MathUtils
-import android.util.Log
 import android.view.animation.Interpolator
 
 class OffsetInterpolator(
@@ -29,8 +27,7 @@ class OffsetInterpolator(
     }
 
     override fun getInterpolation(input: Float): Float {
-        val value = findMid(input) ?: input
-        return value
+        return findMid(input) ?: input
     }
 
     private fun findMid(key: Float): Float? {

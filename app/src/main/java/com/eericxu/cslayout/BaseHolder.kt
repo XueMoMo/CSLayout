@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.eericxu.cslayout
 
 import androidx.annotation.DrawableRes
@@ -21,7 +23,7 @@ class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
         if (view == null)
             return null
-        return view as T
+        return view as? T
     }
 
 

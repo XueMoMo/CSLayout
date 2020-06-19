@@ -2,12 +2,14 @@ package com.eericxu.cslibrary
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import android.util.FloatProperty
 import android.util.Log
 import android.util.Property
-import android.view.*
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
 
 /**
  * Created by Eericxu on 2018-03-16.
@@ -38,16 +40,17 @@ class BackViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener(),
 
     private val gesture = GestureDetector(ctx, this)
     var onClick: (View) -> Unit = {}
-    var scale = 0.93f
-    var XD = 0f
-    var YD = 0f
+    private var scale = 0.93f
+    private var xD = 0f
+    private var yD = 0f
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
         Log.i("onTouch:", "action:${event.action}")
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                XD = event.x
-                YD = event.y
+                xD = event.x
+                yD = event.y
             }
             MotionEvent.ACTION_UP -> {
                 toRecoverClick()
@@ -57,12 +60,6 @@ class BackViewGesture(ctx: Context) : GestureDetector.SimpleOnGestureListener(),
             }
         }
         return gesture.onTouchEvent(event)
-    }
-
-    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-
-
-            return super.onScroll(e1, e2, distanceX, distanceY)
     }
 
     override fun onDown(e: MotionEvent?): Boolean {
