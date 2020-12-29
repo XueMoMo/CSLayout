@@ -7,29 +7,29 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.eericxu.cslayout.databinding.AtyCsBinding
 import com.eericxu.cslibrary.ScaleViewGesture
 import com.eericxu.cslibrary.createAnimator
 import com.eericxu.cslibrary.finishShareAnim
 import com.eericxu.cslibrary.keyparms.KeyParams
 import com.eericxu.cslibrary.startShareAnim
-import kotlinx.android.synthetic.main.aty_cs.*
 
-class CSAty : BaseAty() {
+class CSAty : BindBaseAty<AtyCsBinding>() {
+    override fun inflate() = AtyCsBinding.inflate(layoutInflater)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.aty_cs)
-        csLayout.visibility = View.INVISIBLE
+        bind.csLayout.visibility = View.INVISIBLE
         val parm = intent.getParcelableExtra<KeyParams>("imgView")
-        val params = iv_cover.layoutParams
+        val params = bind.ivCover.layoutParams
         val p = Point()
         window.windowManager.defaultDisplay.getSize(p)
         params.height = (p.x * (parm.rect.height() * 1f / parm.rect.width())).toInt()
-        iv_cover.layoutParams = params
+        bind.ivCover.layoutParams = params
         Glide.with(this)
                 .load(intent.getIntExtra("img", R.mipmap.img_1))
-                .into(iv_cover)
+                .into(bind.ivCover)
 
-        ScaleViewGesture(this).bindToView(iv_cover, csLayout)?.onClick = {
+        ScaleViewGesture(this).bindToView(bind.ivCover, bind.csLayout)?.onClick = {
             Toast.makeText(it.context, "Click", Toast.LENGTH_SHORT).show()
         }
 
@@ -37,21 +37,21 @@ class CSAty : BaseAty() {
         for (i in 0..100) {
             builder.append("以敦煌为圆心的东北东\n")
         }
-        tv_content.text = builder.toString()
+        bind.tvContent.text = builder.toString()
     }
 
     var anim: Animator? = null
     //父类中重写onWindowFocusChanged 当window第一次获取焦点时执行
     override fun onFirstFocus() {
-        val animator = createAnimator(true, intent, "imgView", iv_cover)
+        val animator = createAnimator(true, intent, "imgView", bind.ivCover)
         (animator as ValueAnimator).addUpdateListener {
-            tv_content.translationY = iv_cover.translationY * 0.6f
-            tv_content.translationX = iv_cover.translationX
+            bind.tvContent.translationY = bind.ivCover.translationY * 0.6f
+            bind.tvContent.translationX = bind.ivCover.translationX
         }
-        csLayout.visibility = View.VISIBLE
+        bind.csLayout.visibility = View.VISIBLE
         anim = startShareAnim(
-                csLayout,
-                createAnimator(true, intent, "tvTit", tv_title),
+                bind.csLayout,
+                createAnimator(true, intent, "tvTit", bind.tvTitle),
                 animator
         )
     }
@@ -60,14 +60,14 @@ class CSAty : BaseAty() {
     override fun finish() {
         if (anim != null && anim?.isRunning == true)
             return
-        val animator = createAnimator(false, intent, "imgView", iv_cover)
+        val animator = createAnimator(false, intent, "imgView", bind.ivCover)
         (animator as ValueAnimator).addUpdateListener {
-            tv_content.translationY = iv_cover.translationY * 0.6f
-            tv_content.translationX = iv_cover.translationX
+            bind.tvContent.translationY = bind.ivCover.translationY * 0.6f
+            bind.tvContent.translationX = bind.ivCover.translationX
         }
         finishShareAnim(
-                csLayout,
-                createAnimator(false, intent, "tvTit", tv_title),
+                bind.csLayout,
+                createAnimator(false, intent, "tvTit", bind.tvTitle),
                 animator,
                 onAnimEnd = {
                     superFinish()
