@@ -5,24 +5,27 @@
   关于动画部分 查看 [https://www.jianshu.com/p/001e6cd66bf9](https://www.jianshu.com/p/001e6cd66bf9)
   
 ![圆角和阴影效果](/demoImg/1023565322.jpg)
-## 使用方式 ##
+# 使用方式 #
 
 ### 1 将cslibrary 添加到项目 ###
-[![](https://jitpack.io/v/XueMoMo/CSLayout.svg)](https://jitpack.io/#XueMoMo/CSLayout)
-Add it in your root build.gradle at the end of repositories:
+#### v1.1.1 之前 ####
+      Step 1. Add it in your root build.gradle at the end of repositories:
 
-        	allprojects {
-        		repositories {
-        			...
-        			maven { url 'https://jitpack.io' }
-        		}
-        	}
-Step 2. Add the dependency
-        
-        	dependencies {
-        	        implementation 'com.github.XueMoMo:CSLayout:v1.1.1'
-        	}
+                allprojects {
+                  repositories {
+                    ...
+                    maven { url 'https://jitpack.io' }
+                  }
+                }
+      Step 2. Add the dependency
 
+                dependencies {
+                        implementation 'com.github.XueMoMo:CSLayout:v1.1.1'
+                }
+#### v1.1.5 之后 ####
+        dependencies {
+            implementation 'com.github.XueMoMo:cslibrary:1.1.5'
+        }
 ### 2.1 布局文件中使用  CSLayout ###
 
         <com.eericxu.cslibrary.CSLayout xmlns:android="http://schemas.android.com/apk/res/android"
