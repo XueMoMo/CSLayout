@@ -44,10 +44,10 @@ class CSAty : BindBaseAty<AtyCsBinding>() {
     //父类中重写onWindowFocusChanged 当window第一次获取焦点时执行
     override fun onFirstFocus() {
         val animator = createAnimator(true, intent, "imgView", bind.ivCover)
-        (animator as ValueAnimator).addUpdateListener {
-            bind.tvContent.translationY = bind.ivCover.translationY * 0.6f
-            bind.tvContent.translationX = bind.ivCover.translationX
-        }
+//        (animator as ValueAnimator).addUpdateListener {
+//            bind.tvContent.translationY = bind.ivCover.translationY * 0.6f
+//            bind.tvContent.translationX = bind.ivCover.translationX
+//        }
         bind.csLayout.visibility = View.VISIBLE
         anim = startShareAnim(
                 bind.csLayout,
@@ -61,10 +61,10 @@ class CSAty : BindBaseAty<AtyCsBinding>() {
         if (anim != null && anim?.isRunning == true)
             return
         val animator = createAnimator(false, intent, "imgView", bind.ivCover)
-        (animator as ValueAnimator).addUpdateListener {
-            bind.tvContent.translationY = bind.ivCover.translationY * 0.6f
-            bind.tvContent.translationX = bind.ivCover.translationX
-        }
+//        (animator as ValueAnimator).addUpdateListener {
+//            bind.tvContent.translationY = bind.ivCover.translationY * 0.6f
+//            bind.tvContent.translationX = bind.ivCover.translationX
+//        }
         finishShareAnim(
                 bind.csLayout,
                 createAnimator(false, intent, "tvTit", bind.tvTitle),
@@ -76,6 +76,6 @@ class CSAty : BindBaseAty<AtyCsBinding>() {
 
     private fun superFinish() {
         super.finish()
-        overridePendingTransition(0, R.anim.exit_fade)
+        overridePendingTransition(0, 0)
     }
 }

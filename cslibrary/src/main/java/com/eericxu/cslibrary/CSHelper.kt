@@ -10,7 +10,6 @@ import android.util.AttributeSet
 class CSHelper {
 
     var mCircle = false             //是否圆形
-    var mCornerOverlay = false      //覆盖模式
     var mCornerOverlayColor = Color.WHITE
     var mCorner = 0f                //圆角
     var mCornerLeftTop = 0f
@@ -22,6 +21,7 @@ class CSHelper {
     var mShadowSizeTop = 0f
     var mShadowSizeRight = 0f
     var mShadowSizeBottom = 0f
+    var inAnim = false
 
     private var shadowColorChanged = true
     var mShadowColor: Int = 0x44000000            //阴影颜色
@@ -82,7 +82,6 @@ class CSHelper {
                 mShadowSizeRight = getDimensionPixelSize(R.styleable.CSAttrs_cs_shadow_size_right, shadowSize).toFloat()
                 mShadowSizeBottom = getDimensionPixelSize(R.styleable.CSAttrs_cs_shadow_size_bottom, shadowSize).toFloat()
 
-                mCornerOverlay = getBoolean(R.styleable.CSAttrs_cs_corner_overlay, mCornerOverlay)
                 mCornerOverlayColor = getColor(R.styleable.CSAttrs_cs_corner_overlay_color, mCornerOverlayColor)
 
                 mClip = getDimensionPixelSize(R.styleable.CSAttrs_cs_clip, 0).toFloat()
@@ -114,6 +113,7 @@ class CSHelper {
         canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         mPaint.setShadowLayer(mRealShadowSize, 0f, 0f, mShadowColor)
         canvas?.drawPath(mShadowPath, mPaint)
+        mPaint.clearShadowLayer()
 
     }
 
@@ -141,7 +141,7 @@ class CSHelper {
         mShadowPath.reset()
         mRect.set(0f, 0f, 0f + mWidth, 0f + mHeight)
         if (mCircle) {
-            val circleA = Math.min(mWidth - mShadowSize * 2, mHeight - mShadowSize * 2)
+            val circleA = (mWidth - mShadowSize * 2).coerceAtMost(mHeight - mShadowSize * 2)
             val left = (mWidth - circleA) / 2f
             val top = (mHeight - circleA) / 2f
             val right = left + circleA
@@ -178,7 +178,7 @@ class CSHelper {
         createShader()
     }
 
-    private val xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+    private val xfermode = PorterDuffXfermode(PorterDuff.Mode.DST)
     fun drawBefore(c: Canvas?, isEditMode: Boolean = false) {
         if (c == null)
             return
@@ -187,39 +187,26 @@ class CSHelper {
             c.clipPath(mClipPath)
             return
         }
-        if (mCornerOverlay) return
-        c.clipPath(mClipPath)
-
+        if (inAnim) c.clipPath(mClipPath)
     }
 
 
 
     fun drawAfter(c: Canvas?, isEditMode: Boolean = false) {
         if (c == null) return
-        if (mCornerOverlay && !isEditMode) {
+
+        if (!isEditMode && !inAnim) {
             mClipPath.fillType = Path.FillType.INVERSE_WINDING
             mPaint.color = mCornerOverlayColor
             mPaint.style = Paint.Style.FILL
             c.drawPath(mClipPath, mPaint)
-        }
-        if (mCorner > 0) {
-            mPaint.strokeWidth = 1f
-            mPaint.style = Paint.Style.STROKE
-            mPaint.color = Color.RED
-            mPaint.xfermode = xfermode
-            c.drawPath(mClipPath, mPaint)
-            mPaint.xfermode = null
+            mClipPath.fillType = Path.FillType.WINDING
         }
         c.restore()
-        if (mRealShadowSize > 0 && !isEditMode) {
+        if (mRealShadowSize > 0 && !isEditMode && !inAnim) {
             c.save()
             mClipPath.fillType = Path.FillType.WINDING
-//            Log.e("drawShadow:", "" + mRealShadowSize)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                c.clipOutPath(mClipPath)
-            }else{
-                c.clipPath(mClipPath, Region.Op.DIFFERENCE)
-            }
+            clipOutPath(c, mClipPath)
             mPaint.color = Color.WHITE
             mPaint.style = Paint.Style.FILL
             mShadowBitmap?.let { c.drawBitmap(it, 0f, 0f, mPaint) }
@@ -227,6 +214,13 @@ class CSHelper {
         }
     }
 
+    private fun clipOutPath(c: Canvas,p: Path){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            c.clipOutPath(p)
+        }else{
+            c.clipPath(p, Region.Op.DIFFERENCE)
+        }
+    }
     private fun max(vararg value: Float): Float {
         var max = value[0]
         value.forEach {

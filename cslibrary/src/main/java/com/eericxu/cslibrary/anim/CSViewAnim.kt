@@ -1,12 +1,17 @@
 package com.eericxu.cslibrary.anim
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import androidx.core.math.MathUtils
 import android.view.View
 import com.eericxu.cslibrary.CSInterface
+import com.eericxu.cslibrary.SimpleAnimLis
 import com.eericxu.cslibrary.keyparms.CSKeyParams
 
-class CSViewAnim(val isStart: Boolean, val v: CSInterface, val from: CSKeyParams, val to: CSKeyParams) : ValueAnimator(), BaseAnim<View, CSKeyParams> {
+class CSViewAnim(val isStart: Boolean,
+                 val v: CSInterface,
+                 private val from: CSKeyParams,
+                 private val to: CSKeyParams) : ValueAnimator(), BaseAnim<View, CSKeyParams> {
     val view = v as View
 
     init {
@@ -31,6 +36,15 @@ class CSViewAnim(val isStart: Boolean, val v: CSInterface, val from: CSKeyParams
             v.csHelper().refresh()
             view.invalidate()
         }
+        addListener(object : SimpleAnimLis(){
+            override fun onAnimationStart(animation: Animator?) {
+                v.csHelper().inAnim = true
+            }
+            override fun onAnimationEnd(animation: Animator?) {
+                v.csHelper().inAnim = false
+                if (!isStart) view.visibility = View.GONE
+            }
+        })
     }
 
 

@@ -18,15 +18,15 @@ class MainActivity : BindBaseAty<ActivityMainBinding>() {
         }
         bind.mList.layoutManager = manager
         bind.mList.adapter = adapter
-        lifecycle.addObserver(object : LifeObserver() {
-            override fun onResume() {
-                adapter.onResume()
-            }
-
-            override fun onPause() {
-                adapter.onPause()
-            }
-        })
+//        lifecycle.addObserver(object : LifeObserver() {
+//            override fun onResume() {
+//                adapter.onResume()
+//            }
+//
+//            override fun onPause() {
+//                adapter.onPause()
+//            }
+//        })
     }
 
 

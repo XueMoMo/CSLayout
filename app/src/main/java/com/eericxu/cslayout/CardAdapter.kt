@@ -35,49 +35,8 @@ class CardAdapter : RecyclerView.Adapter<BaseHolder>() {
         holder.setImageRes(R.id.iv_cover, res)
         val tvTit = holder.getView<TextView>(R.id.tv_title)
         val ivCover = holder.getView<ImageView>(R.id.iv_cover)
-        ivCover?.apply {
-            Glide
-                    .with(holder.itemView)
-                    .load(res)
-                    .into(ivCover)
-        }
-//        holder.itemView.setOnClickListener({
-//            val ctx = it.context
-//            clickView = csLayout
-//            ctx.startActivity(
-//                    Intent(ctx, CSAty::class.java)
-//                            .putExtra("animData", createAnimData(csLayout, csHelper))
-//                            .putExtra("img", res)
-//            )
-//        })
-
-
-        ScaleViewGesture(holder.itemView.context)
-                .setCustumScale(0.95f)
-//                .setCustumScale(object : Property<View, Float>(Float::class.java, "scale") {
-//
-//                    var lengthW = 0
-//                    var lengthH = 0
-//                    val oldClip = csHelper.mClip
-//                    override fun set(v: View, value: Float) {
-//                        if (lengthW == 0) {
-//                            lengthW = v.width
-//                            lengthH = v.height
-//                        }
-//                        csHelper.mClipL = oldClip * value + (1 - value) * lengthW
-//                        csHelper.mClipR = oldClip * value + (1 - value) * lengthW
-//                        csHelper.mClipT = oldClip * value + (1 - value) * lengthH
-//                        csHelper.mClipB = oldClip * value + (1 - value) * lengthH
-//                        csHelper.refresh()
-//                        csLayout.invalidate()
-//                    }
-//
-//                    override fun get(v: View): Float {
-//                        return 1f
-//                    }
-//                })
-                .bindToView(csLayout, csLayout)
-                ?.onClick = {
+        ivCover?.apply { Glide.with(holder.itemView).load(res).into(this) }
+        holder.itemView.setOnClickListener {
             val ctx = it.context
             clickView = csLayout
             val intent = Intent(ctx, CSAty::class.java).putExtra("img", res)
@@ -87,16 +46,30 @@ class CardAdapter : RecyclerView.Adapter<BaseHolder>() {
             ))
         }
 
+
+//        ScaleViewGesture(holder.itemView.context)
+//                .setCustumScale(0.95f)
+//                .bindToView(csLayout, csLayout)
+//                ?.onClick = {
+//                    val ctx = it.context
+//                    clickView = csLayout
+//                    val intent = Intent(ctx, CSAty::class.java).putExtra("img", res)
+//                    ctx.startActivity(createIntentDef(intent, csLayout,
+//                            "imgView" to ivCover as View,
+//                            "tvTit" to tvTit as View
+//                    ))
+//                }
+
     }
 
-    fun onPause() {
-        clickView?.postDelayed({ clickView?.visibility = View.INVISIBLE }, 100)
-    }
-
-    fun onResume() {
-        clickView?.visibility = View.VISIBLE
-        clickView = null
-    }
+//    fun onPause() {
+//        clickView?.postDelayed({ clickView?.visibility = View.INVISIBLE }, 100)
+//    }
+//
+//    fun onResume() {
+//        clickView?.visibility = View.VISIBLE
+//        clickView = null
+//    }
 
 
 }

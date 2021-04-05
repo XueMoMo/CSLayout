@@ -4,15 +4,23 @@ import android.animation.ValueAnimator
 import androidx.core.math.MathUtils
 import android.view.View
 import com.eericxu.cslibrary.keyparms.KeyParams
+import kotlin.math.absoluteValue
 
-class ViewAnim(val isStart: Boolean, val v: View, val from: KeyParams, val to: KeyParams) : ValueAnimator(), BaseAnim<View, KeyParams> {
+class ViewAnim(private val isStart: Boolean,
+               private val v: View,
+               private val from: KeyParams,
+               private val to: KeyParams) : ValueAnimator(), BaseAnim<View, KeyParams> {
 
     init {
         val start = if (isStart) 1f else 0f
         setFloatValues(start, 1 - start)
+        val sh = v.context.resources.displayMetrics.heightPixels
+        val sw = v.context.resources.displayMetrics.widthPixels
+        val fromX = MathUtils.clamp(from.rect.centerX(), -(from.rect.width()/2), sw + from.rect.width()/2)
+        val fromY = MathUtils.clamp(from.rect.centerY(), -(from.rect.height()/2), sh + from.rect.height()/2)
+        val translationX = fromX - to.rect.centerX()
+        val translationY = fromY - to.rect.centerY()
 
-        val translationX = from.rect.centerX() - to.rect.centerX()
-        val translationY = from.rect.centerY() - to.rect.centerY()
         val scale = from.rect.width() * 1f / to.rect.width()
 
         addUpdateListener {
@@ -28,17 +36,9 @@ class ViewAnim(val isStart: Boolean, val v: View, val from: KeyParams, val to: K
             }
         }
     }
-
-    override fun view(): View {
-        return v
-    }
-
-    override fun from(): KeyParams {
-        return from
-    }
-
-    override fun to(): KeyParams {
-        return to
-    }
+    fun numSymbol(a: Int) = if (a > 0) 1 else -1
+    override fun view() = v
+    override fun from() = from
+    override fun to() = to
 
 }

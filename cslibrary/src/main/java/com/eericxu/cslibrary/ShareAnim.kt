@@ -64,6 +64,7 @@ inline fun createAnimator(isStart: Boolean, intent: Intent, key: String, v: View
         else -> ViewAnim(isStart, v, intent.getParcelableExtra(key), KeyParams(key, v.rectInWindow()))
     }
     anim.duration = duration
+//    anim.duration = if (isStart) duration else 5000
     anim.interpolator = interpolator
     return anim
 }
