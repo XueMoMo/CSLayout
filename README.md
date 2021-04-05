@@ -25,7 +25,7 @@
                 dependencies {
                         implementation 'com.github.XueMoMo:CSLayout:v1.1.1'
                 }
-#### v1.1.5 之后  [ ![Download](https://api.bintray.com/packages/xuemomo/android/CSLayout/images/download.svg?version=1.1.5) ](https://bintray.com/xuemomo/android/CSLayout/1.1.5/link)
+#### v1.1.5 之后  [ ![Download](https://api.bintray.com/packages/xuemomo/android/CSLayout/images/download.svg?version=1.1.6) ](https://bintray.com/xuemomo/android/CSLayout/1.1.6/link)
         dependencies {
             implementation 'com.github.XueMoMo:cslibrary:1.1.5'
         }
